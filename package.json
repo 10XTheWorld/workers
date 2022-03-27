@@ -1,14 +1,14 @@
 {
-    "name": "{{ project-name }}",
+    "name": "10X Workers",
     "private": true,
     "version": "1.0.0",
-    "description": "package for creating workers templates",
+    "description": "Routing 10X.TV/123 short links",
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write '**/*.{js,css,json,md}'"
     },
-    "author": "{{ authors }}",
+    "author": "Chris Jacob (chris@10x.tv)",
     "license": "ISC",
     "devDependencies": {
         "prettier": "^1.17.0"
