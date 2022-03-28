@@ -1,7 +1,7 @@
-name = "10xworker"
+name = "workers"
 type = "webpack"
 
-account_id = "${{ secrets.CF_ACCOUNT_ID }}"
+account_id = "3f3a7e7d6b29f0389b841af63623becd"
 workers_dev = true
 route = "workers.10x.tv/*"
-zone_id = "${{ secrets.CF_ZONE_ID }}"
+zone_id = "90ad4b306fb0c0b1121acf97254b869d"
