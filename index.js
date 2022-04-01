@@ -7,8 +7,8 @@ const router = Router()
 Our index route, a simple hello world.
 */
 router.get("/", () => {
-  console.log("testing logs");
-  return new Response("Hello, world! This is the root page of your Worker template.")
+  //console.log("testing logs");
+  return new Response("10X The World!")
 })
 
 /*
@@ -35,36 +35,6 @@ router.get("/example/:text", ({ params }) => {
   })
 })
 
-/*
-This shows a different HTTP method, a POST.
-
-Try send a POST request using curl or another tool.
-
-Try the below curl command to send JSON:
-
-$ curl -X POST <worker> -H "Content-Type: application/json" -d '{"abc": "def"}'
-*/
-router.post("/post", async request => {
-  // Create a base object with some fields.
-  let fields = {
-    "asn": request.cf.asn,
-    "colo": request.cf.colo
-  }
-
-  // If the POST data is JSON then attach it to our response.
-  if (request.headers.get("Content-Type") === "application/json") {
-    fields["json"] = await request.json()
-  }
-
-  // Serialise the JSON to a string.
-  const returnData = JSON.stringify(fields, null, 2);
-
-  return new Response(returnData, {
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-})
 
 /*
 This is the last route we define, it will match anything that hasn't hit a route we've defined
