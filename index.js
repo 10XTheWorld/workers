@@ -8,7 +8,7 @@ const content = {
   },
   '2': {
     'content_id': '2',
-    'utm_id': 'abc.123',
+    'utm_id': 'abc.123456',
     'utm_source': 'google',
     'utm_medium': 'cpc',
     'utm_campaign': 'spring_sale',
@@ -46,7 +46,7 @@ Our index route, a simple hello world.
 */
 router.get("/", () => {
   //console.log("testing logs");
-  return new Response("10X The World!")
+  return new Response("10X The World!...")
 })
 
 /*
