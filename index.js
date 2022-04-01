@@ -6,7 +6,7 @@ const content = {
     'foo': 'bar with spaces',
     'utm': 'another'
   },
-  '2':  {
+  '2': {
     'content_id': '2',
     'utm_id': 'abc.123',
     'utm_source': 'google',
@@ -15,8 +15,17 @@ const content = {
     'utm_term': 'running shoes',
     'utm_content': 'logolink'
   },
-  '3':  {
+  '3': {
     'content_id': '3',
+    'utm_id': 'abc.123',
+    'utm_source': 'google',
+    'utm_medium': 'cpc',
+    'utm_campaign': 'spring_sale',
+    'utm_term': 'running shoes',
+    'utm_content': 'logolink'
+  },
+  '4': {
+    'content_id': '4',
     'utm_id': 'abc.123',
     'utm_source': 'google',
     'utm_medium': 'cpc',
@@ -58,15 +67,11 @@ router.get("/:slug", ({ params }) => {
     });
   } else {
     let query_string = Object.keys(content_data)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(content_data[key])}`)
       .join('&');
-    
-    console.log(query_string);
-    
+        
     let link = `${redirect_to}${content_id}?${query_string}`;
     
-    console.log(link);
-
     return new Response(null, {
       headers: { Location: link },
       status: 301,
