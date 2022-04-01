@@ -74,7 +74,7 @@ router.get("/:slug", ({ params }) => {
     
     return new Response(null, {
       headers: { Location: link },
-      status: 301,
+      status: 302,
     });
   }
 })
