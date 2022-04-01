@@ -3,6 +3,9 @@ import { Router } from 'itty-router'
 // Create a new router
 const router = Router()
 
+// Redirect to landingpage URL
+const redirect_to = 'https://google.com/'
+
 /*
 Our index route, a simple hello world.
 */
@@ -12,27 +15,27 @@ router.get("/", () => {
 })
 
 /*
-This route demonstrates path parameters, allowing you to extract fragments from the request
-URL.
+Extract the short Content ID from URL then redirect to a landing page
 
-Try visit /example/hello and see the response.
+Try visit /1 and see the response.
 */
-router.get("/example/:text", ({ params }) => {
+router.get("/:slug", ({ params }) => {
   // Decode text like "Hello%20world" into "Hello world"
-  let input = decodeURIComponent(params.text)
-
-  // Construct a buffer from our input
-  let buffer = Buffer.from(input, "utf8")
-
-  // Serialise the buffer into a base64 string
-  let base64 = buffer.toString("base64")
-
-  // Return the HTML with the string to the client
-  return new Response(`<p>Base64 encoding: <code>${base64}</code></p>`, {
-    headers: {
-      "Content-Type": "text/html"
-    }
-  })
+  // let input = decodeURIComponent(params.slug)
+  let content_id = params.slug;
+  
+  let link = `${redirect_to}${content_id}`;
+  
+  if (link) {
+    return new Response(null, {
+      headers: { Location: link },
+      status: 301,
+    });
+  } else {
+    return new Response('Content ID not found', {
+      status: 404,
+    });
+  }
 })
 
 
