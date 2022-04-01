@@ -7,7 +7,13 @@ const content = {
     'utm': 'another'
   },
   '2':  {
-    'foo': '123' 
+    'content_id': '2',
+    'utm_id': 'abc.123',
+    'utm_source': 'google',
+    'utm_medium': 'cpc',
+    'utm_campaign': 'spring_sale',
+    'utm_term': 'running shoes',
+    'utm_content': 'logolink'
   }
 }
 
@@ -42,11 +48,15 @@ router.get("/:slug", ({ params }) => {
       status: 404,
     });
   } else {
-    const query_string = Object.keys(content_data)
+    let query_string = Object.keys(content_data)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
       .join('&');
     
+    console.log(query_string);
+    
     let link = `${redirect_to}${content_id}?${query_string}`;
+    
+    console.log(link);
 
     return new Response(null, {
       headers: { Location: link },
