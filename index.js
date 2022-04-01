@@ -3,7 +3,8 @@ import { Router } from 'itty-router'
 // Content ID URL parameters for analytics
 const content = {
   '1': {
-    'foo': 'bar' 
+    'foo': 'bar with spaces',
+    'utm': 'another'
   },
   '2':  {
     'foo': '123' 
@@ -32,15 +33,20 @@ Try visit /1 and see the response.
 router.get("/:slug", ({ params }) => {
   // Decode text like "Hello%20world" into "Hello world"
   // let input = decodeURIComponent(params.slug)
+  
   let content_id = params.slug;
   let content_data = content[content_id];
   
   if(!content_data) {
-      return new Response('Content ID not found', {
+      return new Response('Content ID not found.', {
       status: 404,
     });
   } else {
-    let link = `${redirect_to}${content_id}`;
+    const query_string = Object.keys(content_data)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+      .join('&');
+    
+    let link = `${redirect_to}${content_id}?${query_string}`;
 
     return new Response(null, {
       headers: { Location: link },
