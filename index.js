@@ -7,6 +7,7 @@ const router = Router()
 Our index route, a simple hello world.
 */
 router.get("/", () => {
+  console.log("testing logs");
   return new Response("Hello, world! This is the root page of your Worker template.")
 })
 
