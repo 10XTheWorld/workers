@@ -1,10 +1,20 @@
 import { Router } from 'itty-router'
 
-// Create a new router
-const router = Router()
+// Content ID URL parameters for analytics
+const content = {
+  '1': {
+    'foo': 'bar' 
+  },
+  '2':  {
+    'foo': '123' 
+  }
+}
 
 // Redirect to landingpage URL
 const redirect_to = 'https://google.com/'
+
+// Create a new router
+const router = Router()
 
 /*
 Our index route, a simple hello world.
@@ -23,17 +33,18 @@ router.get("/:slug", ({ params }) => {
   // Decode text like "Hello%20world" into "Hello world"
   // let input = decodeURIComponent(params.slug)
   let content_id = params.slug;
+  let content_data = content[content_id];
   
-  let link = `${redirect_to}${content_id}`;
-  
-  if (link) {
+  if(!content_data) {
+      return new Response('Content ID not found', {
+      status: 404,
+    });
+  } else {
+    let link = `${redirect_to}${content_id}`;
+
     return new Response(null, {
       headers: { Location: link },
       status: 301,
-    });
-  } else {
-    return new Response('Content ID not found', {
-      status: 404,
     });
   }
 })
