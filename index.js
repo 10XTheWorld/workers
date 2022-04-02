@@ -9,50 +9,63 @@ import { Router } from 'itty-router'
 // 'utm_term'     = Content title (e.g. '10X Workout #5 Pushup, Crunch & Squat')
 // 'utm_id'       = Ads campaign id. (e.g. 'organic' if content is not tied to an ads campaign id)
 // 'utm_content'  = Content ID [PLEASE IGNORE. THIS IS AUTOMATICALLY ADDED] (e.g. '1', '2', '3'... same as the content 'key')
+// 'username'     = Twitter Username (will be 10X.TV username in the future)
+// 'referral_id'  = 10X Referral ID (signup to the 10X.TV waitlist at https://10x.tv to get your Referral ID)
 //
 // DRAFT CONTENT IDs
 // Claim your future Content IDs early so other contributors know to not use these IDs
-// 3 = @chrisjacob 10X Music - Stay - Male
-// 2 = @chrisjacob 10X Music - Stay - Female
-// 1 = @chrisjacob Medium post on how to contribute 10X Content
-// 0 = @chrisjacob Easter Egg
+// [CONTENT ID] = [@TWITTER USERNAME] [CONTENT TITLE]
+// 3 = @chrisleejacob 10X Music - Stay - Male
+// 2 = @chrisleejacob 10X Music - Stay - Female
+// 1 = @chrisleejacob Medium post on how to contribute 10X Content
+// 0 = @chrisleejacob Easter Egg
 //
 // PUBLISHED CONTENT IDs
 const content = {
   '4': {
-    'utm_source': 'youtube',
-    'utm_medium': 'video',
+    'utm_source'  : 'youtube',
+    'utm_medium'  : 'video',
     'utm_campaign': 'music',
-    'utm_term': 'TITLE (Song Lyrics) - ARTIST - 10X Men Workout Music',
-    'utm_id': 'organic'
+    'utm_term'    : 'TITLE (Song Lyrics) - ARTIST - 10X Men Workout Music',
+    'utm_id'      : 'organic',
+    'username'    : 'chrisleejacob',
+    'referral_id' : '61d73daba8528M'
   }
 //   '3': {
-//     'utm_source': 'youtube',
-//     'utm_medium': 'video',
+//     'utm_source'  : 'youtube',
+//     'utm_medium'  : 'video',
 //     'utm_campaign': 'music',
-//     'utm_term': 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Men Workout Music',
-//     'utm_id': 'organic'
+//     'utm_term'    : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Men Workout Music',
+//     'utm_id'      : 'organic'
+//     'username'    : 'chrisleejacob',
+//     'referral_id' : '61d73daba8528M'
 //   },
 //   '2': {
-//     'utm_source': 'youtube',
-//     'utm_medium': 'video',
+//     'utm_source'  : 'youtube',
+//     'utm_medium'  : 'video',
 //     'utm_campaign': 'music',
-//     'utm_term': 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Women Workout Music',
-//     'utm_id': 'organic'
+//     'utm_term'    : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Women Workout Music',
+//     'utm_id'      : 'organic'
+//     'username'    : 'chrisleejacob',
+//     'referral_id' : '61d73daba8528M'
 //   },
 //   '1': {
-//     'utm_source': 'medium',
-//     'utm_medium': 'post',
+//     'utm_source'  : 'medium',
+//     'utm_medium'  : 'post',
 //     'utm_campaign': 'content_machine',
-//     'utm_term': '10X Content Machine - Referrals On Autopilot',
-//     'utm_id': 'organic'
+//     'utm_term'    : '10X Content Machine - Referrals On Autopilot',
+//     'utm_id'      : 'organic'
+//     'username'    : 'chrisleejacob',
+//     'referral_id' : '61d73daba8528M'
 //   },
 //   '0': {
-//     'utm_source': 'direct',
-//     'utm_medium': 'post',
+//     'utm_source'  : 'direct',
+//     'utm_medium'  : 'post',
 //     'utm_campaign': 'egg',
-//     'utm_term': '10X Content ID Easter Egg',
-//     'utm_id': 'organic'
+//     'utm_term'    : '10X Content ID Easter Egg',
+//     'utm_id'      : 'organic'
+//     'username'    : 'chrisleejacob',
+//     'referral_id' : '61d73daba8528M'
 //   }
 }
 
@@ -84,8 +97,28 @@ router.get("/:slug", ({ params, query }) => {
       status: 404,
     });
   } else {
-    let referral = query.ref || query.ref_id; // e.g. for @chrisjacob ?ref_id=61d73daba8528M;
-    let referral_query_string = referral ? `ref_id=${referral}&` : '';
+    let referral = query.ref || query.ref_id; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
+    let has_referral = referral ? true : false; 
+    
+    // Share referral traffic between creators
+    // Content Creator = published the 10X Content e.g 10X.TV/123
+    // Traffic Creator = shared the 10X Content e.g. 10X.TV/123?ref=abc
+    // Source Creator  = one creator picked from the list of sourecs that the 10X Content was based on e.g. example.com (COMING SOON ^_^)
+    if(has_referral) {
+      // 50% to the Content Creator, 50% to the Traffic Creator
+      if (Math.random() >= 0.5) {
+        // Content Creator 
+        referral = content_data.referral_id;
+      } else {
+        // Traffic Creator
+        referral = referral; // stays the same
+      }
+    } else {
+      // 100% to the Content Creator
+      referral = content_data.referral_id;
+    }
+    
+    let referral_query_string = `ref_id=${referral}&`;
     
     let query_string = Object.keys(content_data)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(content_data[key])}`)
