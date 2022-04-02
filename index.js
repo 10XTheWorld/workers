@@ -97,26 +97,22 @@ router.get("/:slug", ({ params, query }) => {
       status: 404,
     });
   } else {
-    let referral = query.ref || query.ref_id; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
-    let has_referral = referral ? true : false; 
+    let query_referral = query.ref || query.ref_id; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
+    let has_query_referral = query_referral ? true : false; 
     
     // Share referral traffic between creators
     // Content Creator = published the 10X Content e.g 10X.TV/123
     // Traffic Creator = shared the 10X Content e.g. 10X.TV/123?ref=abc
     // Source Creator  = one creator picked from the list of sourecs that the 10X Content was based on e.g. example.com (COMING SOON ^_^)
-    if(has_referral) {
-      // 50% to the Content Creator, 50% to the Traffic Creator
+    
+    // Default = 100% to the Content Creator
+    let referral = content_data.referral_id;
+    
+    if(has_query_referral) {
       if (Math.random() >= 0.5) {
-        // Content Creator 
-        referral = content_data.referral_id;
-      } else {
-        // Traffic Creator
-        referral = referral; // stays the same
-      }
-    } else {
-      // 100% to the Content Creator
-      referral = content_data.referral_id;
-    }
+        // 50% to the Traffic Creator (other 50% goes to the Content Creator by default) 
+        referral = query_referral;
+    } 
     
     let referral_query_string = `ref_id=${referral}&`;
     
