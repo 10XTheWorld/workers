@@ -88,7 +88,7 @@ router.get("/:slug", ({ params }) => {
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(content_data[key])}`)
       .join('&');
         
-    let link = `${redirect_to}${content_id}?utm_content={$content_id}&${query_string}`;
+    let link = `${redirect_to}?utm_content=${content_id}&${query_string}`;
     
     return new Response(null, {
       headers: { Location: link },
