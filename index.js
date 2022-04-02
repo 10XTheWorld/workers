@@ -75,7 +75,7 @@ Extract the short Content ID from URL then redirect to a landing page
 
 Try visit /1 and see the response.
 */
-router.get("/:slug", ({ params }) => {
+router.get("/:slug", ({ params, query }) => {
   let content_id = params.slug;
   let content_data = content[content_id];
   
@@ -84,11 +84,14 @@ router.get("/:slug", ({ params }) => {
       status: 404,
     });
   } else {
+    let referral = query.ref || query.ref_id; // e.g. for @chrisjacob ?ref_id=61d73daba8528M;
+    let referral_query_string = referral ? `ref_id=${referral}&` : '';
+    
     let query_string = Object.keys(content_data)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(content_data[key])}`)
       .join('&');
         
-    let link = `${redirect_to}?utm_content=${content_id}&${query_string}`;
+    let link = `${redirect_to}?${referral_query_string}utm_content=${content_id}&${query_string}`;
     
     return new Response(null, {
       headers: { Location: link },
