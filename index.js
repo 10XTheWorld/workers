@@ -101,9 +101,21 @@ router.get("/:slug", ({ params, query }) => {
     let has_query_referral = query_referral ? true : false; 
     
     // Share referral traffic between creators
-    // Content Creator = published the 10X Content e.g 10X.TV/123
-    // Traffic Creator = shared the 10X Content e.g. 10X.TV/123?ref=abc
-    // Source Creator  = one creator picked from the list of sourecs that the 10X Content was based on e.g. example.com (COMING SOON ^_^)
+    // Content Creator = published the 10X Content
+    // Traffic Creator = shared the 10X Content
+    // Source Creator  = one creator picked from the list of sources that the 10X Content was based on
+    
+    // The types of split:
+    // NONE = 100% Organic e.g. 10X.TV/
+    // TRAFFIC = 100% Traffic e.g. 10X.TV/?ref=abc
+    // CONTENT = 100% Content e.g. 10X.TV/123
+    // TRAFFIC + CONTENT = 50% Traffic, 50% Content e.g. 10X.TV/123?ref=abc
+    // CONTENT + SOURCES = 50% Content, 50% Sources e.g. 10X.TV/123 + if 5 content sources then they each have a 10% chance
+    // TRAFFIC + CONTENT + SOURCES = 50% Traffic, 25% Content, 25% Sources e.g. 10X.TV/123?ref=abc + if 5 content sources then they each have a 5% chance
+    // NOTE: 
+    // Content can have 0, 1 or MANY Sources. 
+    // Sources need to have a 10X Referral ID (i.e. Claim Ownership) to be considered in the split.
+    // If NO Sources have a Referral ID then the Content Creator gets their share of the split
     
     // Default = 100% to the Content Creator
     let referral = content_data.referral_id;
