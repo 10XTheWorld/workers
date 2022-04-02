@@ -3,11 +3,12 @@ import { Router } from 'itty-router'
 // Content ID URL parameters for analytics
 const content = {
   '1': {
+    'content_id': '1a',
     'foo': 'bar with spaces',
     'utm': 'another'
   },
   '2': {
-    'content_id': '2',
+    'content_id': '2a',
     'utm_id': 'abc.123456789',
     'utm_source': 'google',
     'utm_medium': 'cpc',
@@ -16,7 +17,7 @@ const content = {
     'utm_content': 'logolink'
   },
   '3': {
-    'content_id': '3',
+    'content_id': '3a',
     'utm_id': 'abc.123',
     'utm_source': 'google',
     'utm_medium': 'cpc',
@@ -25,7 +26,7 @@ const content = {
     'utm_content': 'logolink'
   },
   '4': {
-    'content_id': '4',
+    'content_id': '4a',
     'utm_id': 'abc.123',
     'utm_source': 'google',
     'utm_medium': 'cpc',
