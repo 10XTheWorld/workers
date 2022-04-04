@@ -3,18 +3,18 @@ import { Router } from 'itty-router'
 // Content ID URL parameters for analytics
 //
 // FIELDS
-// 'utm_source'       = Content platform (e.g. youtube, twitter, giphy, medium)
-// 'utm_medium'       = Content type (e.g. video, tweet, gif, post)
-// 'utm_campaign'     = Content strategy group (e.g. workout, exercise_gif, music, thread, summary, product_of_all_time)
-// 'utm_term'         = Content title (e.g. '10X Workout #5 Pushup, Crunch & Squat')
-// 'utm_id'           = Ads campaign id. (e.g. 'organic' if content is not tied to an ads campaign id)
-// 'utm_content'      = Content ID [PLEASE IGNORE. THIS IS AUTOMATICALLY ADDED] (e.g. '1', '2', '3'... same as the content 'key')
-// 'username'         = Twitter Username (will be 10X.TV username in the future)
-// 'referral_id'      = 10X Referral ID (signup to the 10X.TV waitlist at https://10x.tv to get your Referral ID)
-// 'sources'          = A list of content sources that deserve credit (a source can Claim Ownership & get a portion of referral traffic)
-// -- 'sources.title' = Title of the source content e.g. ABC Article, XYZ Blog Post, Youtube Video Title, Creators Name, etc
-// -- 'sources.url'   = URL to the source content
-// -- 'sources.ref'   = 10X Referral ID of the source creator is filled in if the source has Claimed Ownership
+// 'utm_source'     = Content platform (e.g. youtube, twitter, giphy, medium)
+// 'utm_medium'     = Content type (e.g. video, tweet, gif, post)
+// 'utm_campaign'   = Content strategy group (e.g. workout, exercise_gif, music, thread, summary, product_of_all_time)
+// 'utm_term'       = Content title (e.g. '10X Workout #5 Pushup, Crunch & Squat')
+// 'utm_id'         = Ads campaign id. (e.g. 'organic' if content is not tied to an ads campaign id)
+// 'utm_content'    = Content ID [PLEASE IGNORE. THIS IS AUTOMATICALLY ADDED] (e.g. '1', '2', '3'... same as the content 'key')
+// 'username'       = Twitter Username (will be 10X.TV username in the future)
+// 'content_ref_id' = 10X Referral ID (signup to the 10X.TV waitlist at https://10x.tv to get your Referral ID)
+// 'sources'        = A list of content sources that deserve credit (a source can Claim Ownership & get a portion of referral traffic)
+// -- 'sources.title'         = Title of the source content e.g. ABC Article, XYZ Blog Post, Youtube Video Title, Creators Name, etc
+// -- 'sources.url'           = URL to the source content
+// -- 'sources.source_ref_id' = 10X Referral ID of the source creator is filled in if the source has Claimed Ownership
 //
 // DRAFT CONTENT IDs
 // Claim your future Content IDs early so other contributors know to not use these IDs
@@ -27,70 +27,70 @@ import { Router } from 'itty-router'
 // PUBLISHED CONTENT IDs
 const content = {
   '4': {
-    'utm_source'  : 'youtube',
-    'utm_medium'  : 'video',
-    'utm_campaign': 'music',
-    'utm_term'    : 'TITLE (Song Lyrics) - ARTIST - 10X Men Workout Music',
-    'utm_id'      : 'organic',
-    'username'    : 'chrisleejacob',
-    'referral_id' : '61d73daba8528M',
-    'sources'     : [
+    'utm_source'     : 'youtube',
+    'utm_medium'     : 'video',
+    'utm_campaign'   : 'music',
+    'utm_term'       : 'TITLE (Song Lyrics) - ARTIST - 10X Men Workout Music',
+    'utm_id'         : 'organic',
+    'username'       : 'chrisleejacob',
+    'content_ref_id' : '61d73daba8528M',
+    'sources'        : [
       {
-        'title' : 'ABC',
-        'url'   : 'https://abc.com',
-        'ref'   : ''
+        'title'         : 'ABC',
+        'url'           : 'https://abc.com',
+        'source_ref_id' : ''
       },
       {
-        'title' : 'EFG',
-        'url'   : 'https://efg.com',
-        'ref'   : '456'
+        'title'         : 'EFG',
+        'url'           : 'https://efg.com',
+        'source_ref_id' : '456'
       },
       {
-        'title' : 'HIJ',
-        'url'   : 'https://hij.com',
-        'ref'   : '789'
+        'title'         : 'HIJ',
+        'url'           : 'https://hij.com',
+        'source_ref_id' : '789'
       }
     ]
   }
 //   '3': {
-//     'utm_source'  : 'youtube',
-//     'utm_medium'  : 'video',
-//     'utm_campaign': 'music',
-//     'utm_term'    : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Men Workout Music',
-//     'utm_id'      : 'organic'
-//     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M',
-//     'sources'     : []
+//     'utm_source'     : 'youtube',
+//     'utm_medium'     : 'video',
+//     'utm_campaign'   : 'music',
+//     'utm_term'       : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Men Workout Music',
+//     'utm_id'         : 'organic'
+//     'username'       : 'chrisleejacob',
+//     'content_ref_id' : '61d73daba8528M',
+//     'sources'        : []
 //   },
 //   '2': {
-//     'utm_source'  : 'youtube',
-//     'utm_medium'  : 'video',
-//     'utm_campaign': 'music',
-//     'utm_term'    : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Women Workout Music',
-//     'utm_id'      : 'organic'
-//     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M',
-//     'sources'     : []
+//     'utm_source'     : 'youtube',
+//     'utm_medium'     : 'video',
+//     'utm_campaign'   : 'music',
+//     'utm_term'       : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Women Workout Music',
+//     'utm_id'         : 'organic'
+//     'username'       : 'chrisleejacob',
+//     'content_ref_id' : '61d73daba8528M',
+//     'sources'        : []
 //   },
 //   '1': {
-//     'utm_source'  : 'medium',
-//     'utm_medium'  : 'post',
-//     'utm_campaign': 'content_machine',
-//     'utm_term'    : '10X Content Machine - Referrals On Autopilot',
-//     'utm_id'      : 'organic'
-//     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M',
-//     'sources'     : []
+//     'utm_source'     : 'medium',
+//     'utm_medium'     : 'post',
+//     'utm_campaign'   : 'content_machine',
+//     'utm_term'       : '10X Content Machine - Referrals On Autopilot',
+//     'utm_id'         : 'organic'
+//     'username'       : 'chrisleejacob',
+//     'content_ref_id' : '61d73daba8528M',
+//     'sources'        : []
 //   },
 //   '0': {
-//     'utm_source'  : 'direct',
-//     'utm_medium'  : 'post',
-//     'utm_campaign': 'egg',
-//     'utm_term'    : '10X Content ID Easter Egg',
-//     'utm_id'      : 'organic'
-//     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M',
-//     'sources'     : []
+//     'utm_source'     : 'direct',
+//     'utm_medium'     : 'post',
+//     'utm_campaign'   : 'egg',
+//     'utm_term'       : '10X Content ID Easter Egg',
+//     'utm_id'         : 'organic'
+//     'username'       : 'chrisleejacob',
+//     'content_ref_id' : '61d73daba8528M',
+//     'sources'        : []
 //   }
 }
 
@@ -127,12 +127,12 @@ router.get("/:slug", ({ params, query }) => {
     // 2. Traffic Creator = Shared the 10X Content with their Referral ID
     // 3. Source Creator  = One creator picked from the list of sources that the 10X Content was based on
     
-    let content_ref = content_data.referral_id;
+    let content_ref = content_data.content_ref_id;
     let traffic_ref = '';
     let source_ref = '';
     
     // Get traffic Referral ID from query parameters
-    traffic_ref = query.ref || query.ref_id || ''; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
+    traffic_ref = query.ref || query.ref_id || query.traffic_ref_id || ''; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
     let has_traffic_ref = traffic_ref ? true : false; 
     
     // Get one random source Referral ID from content sources that have Claimed Ownership
@@ -141,12 +141,12 @@ router.get("/:slug", ({ params, query }) => {
     let claimed_content_sources = [];
     let has_claimed_content_sources = false;
     if(has_content_sources){
-      claimed_content_sources = content_sources.filter(source => source.ref !== '');
+      claimed_content_sources = content_sources.filter(source => source.source_ref_id !== '');
       has_claimed_content_sources = (Array.isArray(claimed_content_sources) && !claimed_content_sources.length) ? false : true;
     }
     if(has_claimed_content_sources){
       let random_claimed_source = claimed_content_sources[Math.floor(Math.random()*claimed_content_sources.length)]; 
-      source_ref = random_claimed_source.ref;
+      source_ref = random_claimed_source.source_ref_id;
     }
     
     // SPLIT the traffic fairly between TRAFFIC --> CONTENT --> SOURCES. There are 4 Options:
