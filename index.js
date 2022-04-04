@@ -132,7 +132,7 @@ router.get("/:slug", ({ params, query }) => {
     let source_ref = '';
     
     // Get traffic Referral ID from query parameters
-    traffic_ref = query.ref || query.ref_id; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
+    traffic_ref = query.ref || query.ref_id || ''; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
     let has_traffic_ref = traffic_ref ? true : false; 
     
     // Get one random source Referral ID from content sources that have Claimed Ownership
