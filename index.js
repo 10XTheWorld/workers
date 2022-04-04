@@ -34,7 +34,7 @@ const content = {
     'utm_id'      : 'organic',
     'username'    : 'chrisleejacob',
     'referral_id' : '61d73daba8528M',
-    'sources      : [
+    'sources'     : [
       {
         'title' : 'ABC',
         'url'   : 'https://abc.com',
@@ -60,7 +60,7 @@ const content = {
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
 //     'referral_id' : '61d73daba8528M',
-//     'sources      : []
+//     'sources'     : []
 //   },
 //   '2': {
 //     'utm_source'  : 'youtube',
@@ -70,7 +70,7 @@ const content = {
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
 //     'referral_id' : '61d73daba8528M',
-//     'sources      : []
+//     'sources'     : []
 //   },
 //   '1': {
 //     'utm_source'  : 'medium',
@@ -80,7 +80,7 @@ const content = {
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
 //     'referral_id' : '61d73daba8528M',
-//     'sources      : []
+//     'sources'     : []
 //   },
 //   '0': {
 //     'utm_source'  : 'direct',
@@ -90,7 +90,7 @@ const content = {
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
 //     'referral_id' : '61d73daba8528M',
-//     'sources      : []
+//     'sources'     : []
 //   }
 }
 
