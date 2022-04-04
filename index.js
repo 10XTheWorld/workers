@@ -3,14 +3,18 @@ import { Router } from 'itty-router'
 // Content ID URL parameters for analytics
 //
 // FIELDS
-// 'utm_source'   = Content platform (e.g. youtube, twitter, giphy, medium)
-// 'utm_medium'   = Content type (e.g. video, tweet, gif, post)
-// 'utm_campaign' = Content strategy group (e.g. workout, exercise_gif, music, thread, summary, product_of_all_time)
-// 'utm_term'     = Content title (e.g. '10X Workout #5 Pushup, Crunch & Squat')
-// 'utm_id'       = Ads campaign id. (e.g. 'organic' if content is not tied to an ads campaign id)
-// 'utm_content'  = Content ID [PLEASE IGNORE. THIS IS AUTOMATICALLY ADDED] (e.g. '1', '2', '3'... same as the content 'key')
-// 'username'     = Twitter Username (will be 10X.TV username in the future)
-// 'referral_id'  = 10X Referral ID (signup to the 10X.TV waitlist at https://10x.tv to get your Referral ID)
+// 'utm_source'       = Content platform (e.g. youtube, twitter, giphy, medium)
+// 'utm_medium'       = Content type (e.g. video, tweet, gif, post)
+// 'utm_campaign'     = Content strategy group (e.g. workout, exercise_gif, music, thread, summary, product_of_all_time)
+// 'utm_term'         = Content title (e.g. '10X Workout #5 Pushup, Crunch & Squat')
+// 'utm_id'           = Ads campaign id. (e.g. 'organic' if content is not tied to an ads campaign id)
+// 'utm_content'      = Content ID [PLEASE IGNORE. THIS IS AUTOMATICALLY ADDED] (e.g. '1', '2', '3'... same as the content 'key')
+// 'username'         = Twitter Username (will be 10X.TV username in the future)
+// 'referral_id'      = 10X Referral ID (signup to the 10X.TV waitlist at https://10x.tv to get your Referral ID)
+// 'sources'          = A list of content sources that deserve credit (a source can Claim Ownership & get a portion of referral traffic)
+// -- 'sources.title' = Title of the source content e.g. ABC Article, XYZ Blog Post, Youtube Video Title, Creators Name, etc
+// -- 'sources.url'   = URL to the source content
+// -- 'sources.ref'   = 10X Referral ID of the source creator is filled in if the source has Claimed Ownership
 //
 // DRAFT CONTENT IDs
 // Claim your future Content IDs early so other contributors know to not use these IDs
@@ -29,7 +33,24 @@ const content = {
     'utm_term'    : 'TITLE (Song Lyrics) - ARTIST - 10X Men Workout Music',
     'utm_id'      : 'organic',
     'username'    : 'chrisleejacob',
-    'referral_id' : '61d73daba8528M'
+    'referral_id' : '61d73daba8528M',
+    'sources      : [
+      {
+        'title' : 'ABC',
+        'url'   : 'https://abc.com',
+        'ref'   : ''
+      },
+      {
+        'title' : 'EFG',
+        'url'   : 'https://efg.com',
+        'ref'   : '456'
+      },
+      {
+        'title' : 'HIJ',
+        'url'   : 'https://hij.com',
+        'ref'   : '789'
+      }
+    ]
   }
 //   '3': {
 //     'utm_source'  : 'youtube',
@@ -38,7 +59,8 @@ const content = {
 //     'utm_term'    : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Men Workout Music',
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M'
+//     'referral_id' : '61d73daba8528M',
+//     'sources      : []
 //   },
 //   '2': {
 //     'utm_source'  : 'youtube',
@@ -47,7 +69,8 @@ const content = {
 //     'utm_term'    : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Women Workout Music',
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M'
+//     'referral_id' : '61d73daba8528M',
+//     'sources      : []
 //   },
 //   '1': {
 //     'utm_source'  : 'medium',
@@ -56,7 +79,8 @@ const content = {
 //     'utm_term'    : '10X Content Machine - Referrals On Autopilot',
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M'
+//     'referral_id' : '61d73daba8528M',
+//     'sources      : []
 //   },
 //   '0': {
 //     'utm_source'  : 'direct',
@@ -65,7 +89,8 @@ const content = {
 //     'utm_term'    : '10X Content ID Easter Egg',
 //     'utm_id'      : 'organic'
 //     'username'    : 'chrisleejacob',
-//     'referral_id' : '61d73daba8528M'
+//     'referral_id' : '61d73daba8528M',
+//     'sources      : []
 //   }
 }
 
@@ -97,43 +122,85 @@ router.get("/:slug", ({ params, query }) => {
       status: 404,
     });
   } else {
-    let query_referral = query.ref || query.ref_id; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
-    let has_query_referral = query_referral ? true : false; 
+    // Share referral traffic between 3 type of creators:
+    // 1. Content Creator = Published the 10X Content
+    // 2. Traffic Creator = Shared the 10X Content with their Referral ID
+    // 3. Source Creator  = One creator picked from the list of sources that the 10X Content was based on
     
-    // Share referral traffic between creators
-    // Content Creator = published the 10X Content
-    // Traffic Creator = shared the 10X Content
-    // Source Creator  = one creator picked from the list of sources that the 10X Content was based on
+    let content_ref = content_data.referral_id;
+    let traffic_ref = '';
+    let source_ref = '';
     
-    // The types of split:
-    // NONE = 100% Organic e.g. 10X.TV/
-    // TRAFFIC = 100% Traffic e.g. 10X.TV/?ref=abc
-    // CONTENT = 100% Content e.g. 10X.TV/123
-    // TRAFFIC + CONTENT = 50% Traffic, 50% Content e.g. 10X.TV/123?ref=abc
-    // CONTENT + SOURCES = 50% Content, 50% Sources e.g. 10X.TV/123 + if 5 content sources then they each have a 10% chance
-    // TRAFFIC + CONTENT + SOURCES = 50% Traffic, 25% Content, 25% Sources e.g. 10X.TV/123?ref=abc + if 5 content sources then they each have a 5% chance
+    // Get traffic Referral ID from query parameters
+    traffic_ref = query.ref || query.ref_id; // e.g. for @chrisleejacob ?ref_id=61d73daba8528M
+    let has_traffic_ref = traffic_ref ? true : false; 
+    
+    // Get one random source Referral ID from content sources that have Claimed Ownership
+    let content_sources = content_data.sources;
+    let has_content_sources = (Array.isArray(content_sources) && !content_sources.length) ? false : true;
+    let claimed_content_sources = [];
+    let has_claimed_content_sources = false;
+    if(has_content_sources){
+      claimed_content_sources = content_sources.filter(source => source.ref !== '');
+      has_claimed_content_sources = (Array.isArray(claimed_content_sources) && !claimed_content_sources.length) ? false : true;
+    }
+    if(has_claimed_content_sources){
+      let random_claimed_source = claimed_content_sources[Math.floor(Math.random()*claimed_content_sources.length)]; 
+      source_ref = random_claimed_source.ref;
+    }
+    
+    // SPLIT the traffic fairly between TRAFFIC --> CONTENT --> SOURCES. There are 4 Options:
+    // 1. CONTENT = 100% Content e.g. 10X.TV/123
+    // 2. TRAFFIC + CONTENT = 50% Traffic, 50% Content e.g. 10X.TV/123?ref=abc
+    // 3. CONTENT + SOURCES = 50% Content, 50% Sources e.g. 10X.TV/123 + if 5 content sources then they each have a 10% chance
+    // 4. TRAFFIC + CONTENT + SOURCES = 50% Traffic, 25% Content, 25% Sources e.g. 10X.TV/123?ref=abc + if 5 content sources then they each have a 5% chance
+    //
     // NOTE: 
     // Content can have 0, 1 or MANY Sources. 
     // Sources need to have a 10X Referral ID (i.e. Claim Ownership) to be considered in the split.
-    // If NO Sources have a Referral ID then the Content Creator gets their share of the split
+    // If NO Sources have a Referral ID then the Content Creator gets their full share of the split
+    // If MANY Sources have claimed ownership, then just one of these claimed sources is chosen at random (see earlier code)
     
-    // Default = 100% to the Content Creator
-    let referral = content_data.referral_id;
+    let split = Math.random();
     
-    if(has_query_referral) {
-      if (Math.random() >= 0.5) {
-        // 50% to the Traffic Creator (other 50% goes to the Content Creator by default) 
-        referral = query_referral;
+    // CONTENT = 100% Content e.g. 10X.TV/123
+    let referral = content_ref;
+    
+    // TRAFFIC + CONTENT = 50% Traffic, 50% Content e.g. 10X.TV/123?ref=abc
+    if(has_traffic_ref && !has_claimed_content_sources) {
+      if (split >= 0.5) {
+        referral = traffic_ref;
       }
-    } 
+    }
+    
+    // CONTENT + SOURCES = 50% Content, 50% Sources e.g. 10X.TV/123 + if 5 content sources then they each have a 10% chance
+    if(!has_traffic_ref && has_claimed_content_sources){
+      if (split >= 0.5) {
+        referral = source_ref;
+      }
+    }
+    
+    // TRAFFIC + CONTENT + SOURCES = 50% Traffic, 25% Content, 25% Sources e.g. 10X.TV/123?ref=abc + if 5 content sources then they each have a 5% chance
+    if(has_traffic_ref && has_claimed_content_sources) {
+      if (split < 0.5) {
+        referral = traffic_ref;
+      }
+      if (split >= 0.5 && split < 0.75) {
+        referral = content_ref;
+      }
+      if (split >= 0.75) {
+        referral = source_ref;
+      }
+    }
     
     let referral_query_string = `ref_id=${referral}&`;
     
+// XXXX TODO - fix 'sources'... need to accomodate an array of objects in the URL (how to encode/decode to save on length?)
     let query_string = Object.keys(content_data)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(content_data[key])}`)
       .join('&');
         
-    let link = `${redirect_to}?${referral_query_string}utm_content=${content_id}&${query_string}`;
+    let link = `${redirect_to}?${referral_query_string}traffic_ref=${traffic_ref}&utm_content=${content_id}&${query_string}`;
     
     return new Response(null, {
       headers: { Location: link },
