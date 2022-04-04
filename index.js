@@ -124,6 +124,7 @@ router.get("/:slug", ({ params, query }) => {
       if (Math.random() >= 0.5) {
         // 50% to the Traffic Creator (other 50% goes to the Content Creator by default) 
         referral = query_referral;
+      }
     } 
     
     let referral_query_string = `ref_id=${referral}&`;
@@ -138,7 +139,7 @@ router.get("/:slug", ({ params, query }) => {
       headers: { Location: link },
       status: 302,
     });
-  }
+  };
 })
 
 
