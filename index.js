@@ -196,8 +196,10 @@ router.get("/:slug", ({ params, query }) => {
     let referral_query_string = `ref_id=${referral}&`;
     
 // XXXX TODO - fix 'sources'... need to accomodate an array of objects in the URL (how to encode/decode to save on length?)
+// .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(content_data[key])}`)
+
     let query_string = Object.keys(content_data)
-      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(content_data[key])}`)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(Array.isArray(content_data[key]) ? JSON.stringify(content_data[key]) : content_data[key])}`)
       .join('&');
         
     let link = `${redirect_to}?${referral_query_string}traffic_ref=${traffic_ref}&utm_content=${content_id}&${query_string}`;
