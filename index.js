@@ -196,7 +196,7 @@ router.get("/:slug", ({ params, query }) => {
     let referral_query_string = `ref_id=${referral}&`;
 
     // query string passes along content data, and stringifys the 'sources' array of objects
-    // decoding of 'sources' back into it's original Array format can be done with JSON.parse(decodeURIComponent(SOURCES))
+    // decoding of 'sources' back into it's original Array format can be done with JSON.parse(decodeURIComponent(SOURCES)||'[]') // safely handles null (empty string)
     let query_string = Object.keys(content_data)
       .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(Array.isArray(content_data[key]) ? JSON.stringify(content_data[key]) : content_data[key])}`)
       .join('&');
