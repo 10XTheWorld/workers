@@ -57,7 +57,7 @@ const content = {
     'utm_medium'     : 'video',
     'utm_campaign'   : 'music',
     'utm_term'       : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Men Workout Music',
-    'utm_id'         : 'organic'
+    'utm_id'         : 'organic',
     'username'       : 'chrisleejacob',
     'content_ref_id' : '61d73daba8528M',
     'sources'        : []
@@ -67,7 +67,7 @@ const content = {
 //     'utm_medium'     : 'video',
 //     'utm_campaign'   : 'music',
 //     'utm_term'       : 'STAY (Song Lyrics) - The Kid LAROI, Justin Bieber - 10X Women Workout Music',
-//     'utm_id'         : 'organic'
+//     'utm_id'         : 'organic',
 //     'username'       : 'chrisleejacob',
 //     'content_ref_id' : '61d73daba8528M',
 //     'sources'        : []
@@ -77,7 +77,7 @@ const content = {
 //     'utm_medium'     : 'post',
 //     'utm_campaign'   : 'content_machine',
 //     'utm_term'       : '10X Content Machine - Referrals On Autopilot',
-//     'utm_id'         : 'organic'
+//     'utm_id'         : 'organic',
 //     'username'       : 'chrisleejacob',
 //     'content_ref_id' : '61d73daba8528M',
 //     'sources'        : []
@@ -87,7 +87,7 @@ const content = {
 //     'utm_medium'     : 'post',
 //     'utm_campaign'   : 'egg',
 //     'utm_term'       : '10X Content ID Easter Egg',
-//     'utm_id'         : 'organic'
+//     'utm_id'         : 'organic',
 //     'username'       : 'chrisleejacob',
 //     'content_ref_id' : '61d73daba8528M',
 //     'sources'        : []
