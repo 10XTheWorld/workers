@@ -95,7 +95,7 @@ const content = {
 }
 
 // Redirect to landingpage URL
-const redirect_to = 'https://google.com/'
+const redirect_to = 'https://codepen.io/10xtheworld/pen/WNdzVrP'
 
 // Create a new router
 const router = Router()
